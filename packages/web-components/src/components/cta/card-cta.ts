@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -36,11 +36,12 @@ const { stablePrefix: ddsPrefix } = ddsSettings;
 @customElement(`${ddsPrefix}-card-cta`)
 class DDSCardCTA extends VideoCTAMixin(CTAMixin(DDSCard)) {
   protected _renderCopy() {
-    const { ctaType, videoName, _hasCopy: hasCopy, formatVideoCaption: formatVideoCaptionInEffect } = this;
+    const { ctaType, videoName, videoLabel, _hasCopy: hasCopy, formatVideoCaption: formatVideoCaptionInEffect } = this;
     if (ctaType !== CTA_TYPE.VIDEO) {
       return super._renderCopy();
     }
     const caption = hasCopy ? undefined : formatVideoCaptionInEffect({ name: videoName });
+    this.setAttribute('aria-label', videoLabel);
     return html`
       <div ?hidden="${!hasCopy && !caption}" class="${prefix}--card__copy">
         <slot @slotchange="${this._handleSlotChange}"></slot>${caption}
@@ -88,6 +89,13 @@ class DDSCardCTA extends VideoCTAMixin(CTAMixin(DDSCard)) {
    */
   @property({ type: Number, attribute: 'video-duration' })
   videoDuration?: number;
+
+  /**
+   * Aria label to convey video playback upon interaction.
+   * Default label is in English, can be overridden by passing in a translated label.
+   */
+  @property({ attribute: 'video-label' })
+  videoLabel = 'Plays video';
 
   /**
    * The video name.

@@ -1,7 +1,7 @@
 /**
  * @license
  *
- * Copyright IBM Corp. 2020
+ * Copyright IBM Corp. 2020, 2021
  *
  * This source code is licensed under the Apache-2.0 license found in the
  * LICENSE file in the root directory of this source tree.
@@ -49,10 +49,12 @@ class DDSButonCTA extends VideoCTAMixin(CTAMixin(DDSButtonGroupItem)) {
     }
     const {
       videoDuration,
+      videoLabel,
       videoName,
       formatVideoCaption: formatVideoCaptionInEffect,
       formatVideoDuration: formatVideoDurationInEffect,
     } = this;
+    this.setAttribute('aria-label', videoLabel);
     const caption = hasMainContent
       ? undefined
       : formatVideoCaptionInEffect({
@@ -95,6 +97,13 @@ class DDSButonCTA extends VideoCTAMixin(CTAMixin(DDSButtonGroupItem)) {
    */
   @property({ type: Number, attribute: 'video-duration' })
   videoDuration?: number;
+
+  /**
+   * Aria label to convey video playback upon interaction.
+   * Default label is in English, can be overridden by passing in a translated label.
+   */
+  @property({ attribute: 'video-label' })
+  videoLabel = 'Plays video';
 
   /**
    * The video name.
