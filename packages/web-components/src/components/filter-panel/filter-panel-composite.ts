@@ -27,6 +27,7 @@ const { prefix } = settings;
 const { stablePrefix: ddsPrefix } = ddsSettings;
 const gridBreakpoint = parseFloat(breakpoints.md.width) * baseFontSize;
 
+
 /**
  * Filter panel composite
  *
@@ -116,6 +117,17 @@ class DDSFilterPanelComposite extends HostListenerMixin(StableSelectorMixin(LitE
     }
 
     this.renderStatus();
+  };
+
+
+  @HostListener('document:viewAllRemoved')
+  protected _handleViewAll = (event: CustomEvent) => {
+    const { viewAllRemoved } = event.detail;
+
+    this._viewAllRemoved = viewAllRemoved;
+
+
+    console.log('compoiste is', this._viewAllRemoved)
   };
 
   /**
@@ -270,6 +282,10 @@ class DDSFilterPanelComposite extends HostListenerMixin(StableSelectorMixin(LitE
    */
   @property()
   _filterButtonTitle: string = '';
+
+
+  @property({attribute: true, reflect: true, type: Boolean})
+  _viewAllRemoved: Boolean = false;
 
   /**
    * Handles `slotchange` event.
