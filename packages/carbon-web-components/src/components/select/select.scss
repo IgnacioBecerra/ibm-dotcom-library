@@ -69,4 +69,29 @@ $css--plex: true !default;
       }
     }
   }
+
+  &[pagination] {
+    .#{$prefix}--label {
+      margin: 0;
+    }
+
+    .#{$prefix}--select-input {
+      padding: 0 2.25rem 0 1rem;
+
+      &:focus {
+        background-color: transparent;
+      }
+    }
+
+    .#{$prefix}--select__arrow {
+      top: 50%;
+      transform: translate(-0.5rem, -50%);
+    }
+
+    &[left-select] {
+      .#{$prefix}--select-input {
+        border-right: 1px solid $border-subtle;
+      }
+    }
+  }
 }
